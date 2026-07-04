@@ -8,7 +8,7 @@
 	},
 	"id": "imes.smoothtextinput",
 	"name": "Smooth TextInput",
-	"version": "v1.1.1",
+	"version": "v1.2.0",
 	"developer": "imes",
 	"description": "Smooth text input animation.",
 	"links": {
@@ -22,10 +22,17 @@
 		"interface",
 		"customization"
 	],
-	"dependencies": {
-		"geode.node-ids": ">=v1.23.3"
-	},
 	"settings": {
+		"title-enabled": {
+			"type": "title",
+			"name": "Smooth TextInput"
+		},
+		"enabled": {
+			"type": "bool",
+			"default": true,
+			"name": "Enabled",
+			"description": "Toggle smooth text input animations."
+		},
 		"title-duration": {
 			"type": "title",
 			"name": "Duration"
@@ -71,6 +78,7 @@
 			"max": 360,
 			"name": "Pop In Angle",
 			"description": "Direction of pop-in motion in degrees (0 = up).",
+			"enable-if": "pop-in-enabled",
 			"control": {
 				"slider": true,
 				"slider-step": 1
@@ -80,7 +88,8 @@
 			"type": "bool",
 			"default": false,
 			"name": "Randomize Pop In Angle",
-			"description": "Random angle 0-360 per character on fade-in."
+			"description": "Random angle 0-360 per character on fade-in.",
+			"enable-if": "pop-in-enabled"
 		},
 		"pop-in-distance": {
 			"type": "float",
@@ -89,6 +98,7 @@
 			"max": 50.0,
 			"name": "Pop In Distance",
 			"description": "Pop-in offset distance in pixels.",
+			"enable-if": "pop-in-enabled",
 			"control": {
 				"slider": true,
 				"slider-step": 0.5
@@ -98,7 +108,8 @@
 			"type": "bool",
 			"default": false,
 			"name": "Randomize Pop In Distance",
-			"description": "Random distance from 0 to 50 per character on fade-in (ignores distance slider)."
+			"description": "Random distance from 0 to 50 per character on fade-in (ignores distance slider).",
+			"enable-if": "pop-in-enabled"
 		},
 		"title-pop-out": {
 			"type": "title",
@@ -117,6 +128,7 @@
 			"max": 360,
 			"name": "Pop Out Angle",
 			"description": "Direction of pop-out motion in degrees (0 = up).",
+			"enable-if": "pop-out-enabled",
 			"control": {
 				"slider": true,
 				"slider-step": 1
@@ -126,7 +138,8 @@
 			"type": "bool",
 			"default": false,
 			"name": "Randomize Pop Out Angle",
-			"description": "Random angle 0-360 per character on fade-out."
+			"description": "Random angle 0-360 per character on fade-out.",
+			"enable-if": "pop-out-enabled"
 		},
 		"pop-out-distance": {
 			"type": "float",
@@ -135,6 +148,7 @@
 			"max": 50.0,
 			"name": "Pop Out Distance",
 			"description": "Pop-out offset distance in pixels.",
+			"enable-if": "pop-out-enabled",
 			"control": {
 				"slider": true,
 				"slider-step": 0.5
@@ -144,7 +158,8 @@
 			"type": "bool",
 			"default": false,
 			"name": "Randomize Pop Out Distance",
-			"description": "Random distance from 0 to 50 per character on fade-out (ignores distance slider)."
+			"description": "Random distance from 0 to 50 per character on fade-out (ignores distance slider).",
+			"enable-if": "pop-out-enabled"
 		}
 	}
 }

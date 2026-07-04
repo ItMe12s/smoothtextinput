@@ -37,37 +37,43 @@ struct PendingFade {
     cocos2d::CCPoint                      motion;
 };
 
-inline float fadeInDuration() {
-    return static_cast<float>(geode::Mod::get()->getSettingValue<double>("fade-in-duration"));
-}
+struct AnimSettings {
+    bool        enabled;
+    float       fadeIn;
+    float       fadeOut;
+    PopSettings popIn;
+    PopSettings popOut;
+};
 
-inline float fadeOutDuration() {
-    return static_cast<float>(geode::Mod::get()->getSettingValue<double>("fade-out-duration"));
-}
-
-inline PopSettings popInSettings() {
-    auto mod = geode::Mod::get();
+inline AnimSettings loadConfig() {
+    auto* m = geode::Mod::get();
     return {
-        mod->getSettingValue<bool>("pop-in-enabled"),
-        static_cast<int>(mod->getSettingValue<int64_t>("pop-in-angle")),
-        mod->getSettingValue<bool>("pop-in-angle-random"),
-        static_cast<float>(mod->getSettingValue<double>("pop-in-distance")),
-        mod->getSettingValue<bool>("pop-in-distance-random"),
+        m->getSettingValue<bool>("enabled"),
+        static_cast<float>(m->getSettingValue<double>("fade-in-duration")),
+        static_cast<float>(m->getSettingValue<double>("fade-out-duration")),
+        {
+            m->getSettingValue<bool>("pop-in-enabled"),
+            static_cast<int>(m->getSettingValue<int64_t>("pop-in-angle")),
+            m->getSettingValue<bool>("pop-in-angle-random"),
+            static_cast<float>(m->getSettingValue<double>("pop-in-distance")),
+            m->getSettingValue<bool>("pop-in-distance-random"),
+        },
+        {
+            m->getSettingValue<bool>("pop-out-enabled"),
+            static_cast<int>(m->getSettingValue<int64_t>("pop-out-angle")),
+            m->getSettingValue<bool>("pop-out-angle-random"),
+            static_cast<float>(m->getSettingValue<double>("pop-out-distance")),
+            m->getSettingValue<bool>("pop-out-distance-random"),
+        },
     };
 }
 
-inline PopSettings popOutSettings() {
-    auto mod = geode::Mod::get();
-    return {
-        mod->getSettingValue<bool>("pop-out-enabled"),
-        static_cast<int>(mod->getSettingValue<int64_t>("pop-out-angle")),
-        mod->getSettingValue<bool>("pop-out-angle-random"),
-        static_cast<float>(mod->getSettingValue<double>("pop-out-distance")),
-        mod->getSettingValue<bool>("pop-out-distance-random"),
-    };
+inline bool animationsActive(AnimSettings const& s) {
+    if (!s.enabled) return false;
+    if (s.fadeIn > 0.f || s.fadeOut > 0.f) return true;
+    return s.popIn.enabled || s.popOut.enabled;
 }
 
-// Motion vector, angle 0 = up.
 inline cocos2d::CCPoint popMotion(float angleDeg, float distance) {
     float r = angleDeg * M_PI / 180.0f; // I'm sorry dankmeme, you're right.
     return cocos2d::CCPoint(std::sin(r) * distance, std::cos(r) * distance);
