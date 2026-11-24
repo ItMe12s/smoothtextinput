@@ -1,4 +1,10 @@
-# 1.2.0
+# Changelog
+
+## 1.2.1
+
+- Updated to Geode 6.0.0-beta.3
+
+## 1.2.0
 
 - Better Geode settings input detection.
 - Added master enable toggle.
