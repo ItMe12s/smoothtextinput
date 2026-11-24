@@ -259,7 +259,7 @@ class $modify(CharFadeInput, CCTextInputNode) {
         }
     }
 
-    void setString(gd::string text) {
+    void setString(std::string text) {
         m_fields->externalUpdate = true;
         CCTextInputNode::setString(text);
         m_fields->externalUpdate = false;
